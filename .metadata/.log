@@ -841,3 +841,12 @@ Binding(CTRL+SHIFT+H,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.cdt.ui.cViewScope,,,system)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-02-18 21:52:09.511
+!MESSAGE Indexed 'prueba3' (8 sources, 13 headers) in 1.78 sec: 3,502 declarations; 2,848 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-02-18 21:56:07.346
+!MESSAGE Indexed 'prueba2' (8 sources, 13 headers) in 1.33 sec: 3,444 declarations; 2,734 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-02-18 22:08:24.315
+!MESSAGE Indexed 'prelab1' (10 sources, 15 headers) in 1.48 sec: 3,487 declarations; 2,854 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)

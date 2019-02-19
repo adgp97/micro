@@ -30,6 +30,7 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
+#include "AD1.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -53,7 +54,14 @@ void main(void)
   /* For example: for(;;) { } */
   for(;;){
 	  
+	  AD1_GetChanValue16(0,A);
+	  AD1_GetChanValue16(1,B);
 	  
+	  trama[0] = (A[0]<<2 | A[1]>>6) & 0b01111111;
+	  trama[1] = A[1]<<2;
+	  trama[1] = trama[1]>>2 | 0b10000000;
+	  trama[2] = (B[0]<<2 | B[1]>>6) | 0b10000000;
+	  //Falta el ultimo byte de la trama
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
