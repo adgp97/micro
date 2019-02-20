@@ -16,6 +16,7 @@ Events_c.obj                            Model: SMALL,         Lang: ANSI-C
 main_c.obj                              Model: SMALL,         Lang: ANSI-C
 start08_c.obj                           Model: SMALL,         Lang: ANSI-C
 AD1_c.obj                               Model: SMALL,         Lang: ANSI-C
+AS1_c.obj                               Model: SMALL,         Lang: ANSI-C
 Cpu_c.obj                               Model: SMALL,         Lang: ANSI-C
 IO_Map_c.obj                            Model: SMALL,         Lang: ANSI-C
 Vectors_c.obj                           Model: SMALL,         Lang: ANSI-C
@@ -24,19 +25,19 @@ Vectors_c.obj                           Model: SMALL,         Lang: ANSI-C
 STARTUP SECTION
 ---------------------------------------------------------------------------------------------
 Entry point: 0x2084 (_EntryPoint)
-_startupData is allocated at 0x211B and uses 6 Bytes
+_startupData is allocated at 0x2162 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0xA0     8
-  _Copy    *toCopyDownBeg 0x228A
+  _Range   pZeroOut       0xA0     20
+  _Copy    *toCopyDownBeg 0x23FE
 } _startupData;
 
 *********************************************************************************************
 SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
-.text                            347     R     0x212D     0x2287   ROM
-.rodata                            2     R     0x2288     0x2289   ROM
+.text                            648     R     0x2174     0x23FB   ROM
+.rodata                            2     R     0x23FC     0x23FD   ROM
 .abs_section_ffbd                  1     R     0xFFBD     0xFFBD   .absSeg0
 .abs_section_ffbf                  1     R     0xFFBF     0xFFBF   .absSeg1
 .abs_section_0                     1   N/I        0x0        0x0   .absSeg2
@@ -220,16 +221,16 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_1816                  2   N/I     0x1816     0x1817   .absSeg180
 .abs_section_1870                  2   N/I     0x1870     0x1871   .absSeg181
 .abs_section_ffc0                 64     R     0xFFC0     0xFFFF   .absSeg182
-.bss                               3   R/W       0xA0       0xA2   RAM
-.startData                        18     R     0x211B     0x212C   ROM
-.init                            155     R     0x2080     0x211A   ROM
-.common                            5   R/W       0xA3       0xA7   RAM
-.stack                           512   R/W       0xA8      0x2A7   RAM
-.copy                              2     R     0x228A     0x228B   ROM
+.bss                              12   R/W       0xA0       0xAB   RAM
+.startData                        18     R     0x2162     0x2173   ROM
+.init                            226     R     0x2080     0x2161   ROM
+.common                            8   R/W       0xAC       0xB3   RAM
+.stack                           512   R/W       0xB4      0x2B3   RAM
+.copy                              2     R     0x23FE     0x23FF   ROM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         24E (dec:      590)
-READ_WRITE (R/W):      208 (dec:      520)
+READ_ONLY (R):         3C2 (dec:      962)
+READ_WRITE (R/W):      214 (dec:      532)
 NO_INIT (N/I):          CF (dec:      207)
 
 *********************************************************************************************
@@ -243,52 +244,75 @@ OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 MODULE:                 -- Events_c.obj --
 - PROCEDURES:
-     AD1_OnEnd                                 212D       1       1       1   .text       
+     AD1_OnEnd                                 2174       1       1       1   .text       
+     AS1_OnError                               2175       1       1       2   .text       
+     AS1_OnRxChar                              2176       1       1       1   .text       
+     AS1_OnTxChar                              2177       1       1       1   .text       
+     AS1_OnFreeTxBuf                           2178       1       1       1   .text       
 - VARIABLES:
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
-     main                                      212E      44      68       1   .text       
+     main                                      2179      56      86       1   .text       
 - VARIABLES:
 MODULE:                 -- start08_c.obj --
 - PROCEDURES:
-     loadByte                                  2172       E      14       5   .text       
-     Init                                      2180      6D     109       1   .text       
-     _Startup                                  21ED       9       9       1   .text       
+     loadByte                                  21CF       E      14       5   .text       
+     Init                                      21DD      6D     109       1   .text       
+     _Startup                                  224A       9       9       1   .text       
 - VARIABLES:
-     _startupData                              211B       6       6       4   .startData  
+     _startupData                              2162       6       6       4   .startData  
 - LABELS:
-     __SEG_END_SSTACK                           2A8       0       0       1               
+     __SEG_END_SSTACK                           2B4       0       0       1               
 MODULE:                 -- AD1_c.obj --
 - PROCEDURES:
-     AD1_Interrupt                             21F6      52      82       1   .text       
-     AD1_GetChanValue16                        2248      30      48       2   .text       
-     AD1_Init                                  2278      10      16       1   .text       
+     AD1_Interrupt                             2253      52      82       1   .text       
+     ClrSumV                                   22A5       9       9       1   .text       
+     AD1_HWEnDi                                22AE      18      24       1   .text       
+     AD1_Measure                               22C6      1E      30       1   .text       
+     AD1_GetChanValue16                        22E4      30      48       2   .text       
+     AD1_Init                                  2314      10      16       1   .text       
 - VARIABLES:
-     Channels                                  2288       2       2       1   .rodata     
-     OutFlg                                      A0       1       1       3   .bss        
-     SumChan                                     A1       1       1       6   .bss        
-     ModeFlg                                     A2       1       1       2   .bss        
-     AD1_OutV                                    A3       4       4       6   .common     
+     Channels                                  23FC       2       2       2   .rodata     
+     OutFlg                                      A0       1       1       4   .bss        
+     SumChan                                     A1       1       1       8   .bss        
+     ModeFlg                                     A2       1       1       6   .bss        
+     AD1_OutV                                    AC       4       4       8   .common     
+MODULE:                 -- AS1_c.obj --
+- PROCEDURES:
+     AS1_InterruptRx                           2324      43      67       1   .text       
+     AS1_InterruptTx                           2367      5A      90       1   .text       
+     AS1_InterruptError                        23C1      11      17       1   .text       
+     AS1_Init                                  23D2      2A      42       1   .text       
+- VARIABLES:
+     SerFlag                                     A3       1       1      11   .bss        
+     BufferRead                                  A4       1       1       1   .bss        
+     OutIndxR                                    A5       1       1       3   .bss        
+     OutIndxW                                    A6       1       1       1   .bss        
+     OutBuffer                                   A7       4       4       1   .bss        
+     OnFreeTxBuf_semaphore                       AB       1       1       2   .bss        
+     AS1_OutLen                                  B0       1       1       3   .common     
 MODULE:                 -- Cpu_c.obj --
 - PROCEDURES:
-     Cpu_Interrupt                             2080       4       4      30   .init       
+     Cpu_Interrupt                             2080       4       4      27   .init       
      _EntryPoint                               2084      41      65       1   .init       
-     PE_low_level_init                         20C5      56      86       1   .init       
+     PE_low_level_init                         20C5      9D     157       1   .init       
 - VARIABLES:
      NVPROT_INIT                               FFBD       1       1       0   .abs_section_ffbd
      NVOPT_INIT                                FFBF       1       1       0   .abs_section_ffbf
-     CCR_lock                                    A7       1       1       1   .common     
+     CCR_lock                                    B1       1       1       1   .common     
+     Shadow_PTD                                  B2       1       1       1   .common     
+     Shadow_PTH                                  B3       1       1       1   .common     
 MODULE:                 -- IO_Map_c.obj --
 - PROCEDURES:
 - VARIABLES:
      _PTAD                                        0       1       1       0   .abs_section_0
      _PTADD                                       1       1       1       0   .abs_section_1
-     _PTBD                                        2       1       1       0   .abs_section_2
-     _PTBDD                                       3       1       1       0   .abs_section_3
+     _PTBD                                        2       1       1       1   .abs_section_2
+     _PTBDD                                       3       1       1       2   .abs_section_3
      _PTCD                                        4       1       1       0   .abs_section_4
      _PTCDD                                       5       1       1       0   .abs_section_5
-     _PTDD                                        6       1       1       0   .abs_section_6
-     _PTDDD                                       7       1       1       0   .abs_section_7
+     _PTDD                                        6       1       1       2   .abs_section_6
+     _PTDDD                                       7       1       1       2   .abs_section_7
      _PTED                                        8       1       1       0   .abs_section_8
      _PTEDD                                       9       1       1       0   .abs_section_9
      _PTFD                                        A       1       1       0   .abs_section_a
@@ -297,7 +321,7 @@ MODULE:                 -- IO_Map_c.obj --
      _KBI1PE                                      D       1       1       0   .abs_section_d
      _KBI1ES                                      E       1       1       0   .abs_section_e
      _IRQSC                                       F       1       1       0   .abs_section_f
-     _ADCSC1                                     10       1       1       2   .abs_section_10
+     _ADCSC1                                     10       1       1       3   .abs_section_10
      _ADCSC2                                     11       1       1       1   .abs_section_11
      _ADCCFG                                     16       1       1       1   .abs_section_16
      _APCTL1                                     17       1       1       0   .abs_section_17
@@ -307,14 +331,14 @@ MODULE:                 -- IO_Map_c.obj --
      _ACMP2SC                                    1B       1       1       0   .abs_section_1b
      _PTGD                                       1C       1       1       0   .abs_section_1c
      _PTGDD                                      1D       1       1       0   .abs_section_1d
-     _PTHD                                       1E       1       1       0   .abs_section_1e
-     _PTHDD                                      1F       1       1       0   .abs_section_1f
-     _SCI1C1                                     22       1       1       0   .abs_section_22
-     _SCI1C2                                     23       1       1       0   .abs_section_23
-     _SCI1S1                                     24       1       1       0   .abs_section_24
-     _SCI1S2                                     25       1       1       0   .abs_section_25
-     _SCI1C3                                     26       1       1       0   .abs_section_26
-     _SCI1D                                      27       1       1       0   .abs_section_27
+     _PTHD                                       1E       1       1       2   .abs_section_1e
+     _PTHDD                                      1F       1       1       2   .abs_section_1f
+     _SCI1C1                                     22       1       1       1   .abs_section_22
+     _SCI1C2                                     23       1       1       4   .abs_section_23
+     _SCI1S1                                     24       1       1       3   .abs_section_24
+     _SCI1S2                                     25       1       1       1   .abs_section_25
+     _SCI1C3                                     26       1       1       3   .abs_section_26
+     _SCI1D                                      27       1       1       3   .abs_section_27
      _SPI1C1                                     28       1       1       0   .abs_section_28
      _SPI1C2                                     29       1       1       0   .abs_section_29
      _SPI1BR                                     2A       1       1       0   .abs_section_2a
@@ -398,7 +422,7 @@ MODULE:                 -- IO_Map_c.obj --
      _PTCPE                                    1848       1       1       0   .abs_section_1848
      _PTCSE                                    1849       1       1       1   .abs_section_1849
      _PTCDS                                    184A       1       1       1   .abs_section_184a
-     _PTDPE                                    184C       1       1       0   .abs_section_184c
+     _PTDPE                                    184C       1       1       1   .abs_section_184c
      _PTDSE                                    184D       1       1       1   .abs_section_184d
      _PTDDS                                    184E       1       1       1   .abs_section_184e
      _PTEPE                                    1850       1       1       0   .abs_section_1850
@@ -410,7 +434,7 @@ MODULE:                 -- IO_Map_c.obj --
      _PTGPE                                    1858       1       1       0   .abs_section_1858
      _PTGSE                                    1859       1       1       1   .abs_section_1859
      _PTGDS                                    185A       1       1       1   .abs_section_185a
-     _PTHPE                                    185C       1       1       0   .abs_section_185c
+     _PTHPE                                    185C       1       1       1   .abs_section_185c
      _PTHSE                                    185D       1       1       1   .abs_section_185d
      _PTHDS                                    185E       1       1       1   .abs_section_185e
      _PTJPE                                    1860       1       1       0   .abs_section_1860
@@ -436,7 +460,7 @@ MODULE:                 -- IO_Map_c.obj --
      _PTETOG                                   187D       1       1       0   .abs_section_187d
      _ADCR                                       12       2       2       2   .abs_section_12
      _ADCCV                                      14       2       2       0   .abs_section_14
-     _SCI1BD                                     20       2       2       0   .abs_section_20
+     _SCI1BD                                     20       2       2       2   .abs_section_20
      _TPM1CNT                                    41       2       2       0   .abs_section_41
      _TPM1MOD                                    43       2       2       0   .abs_section_43
      _TPM1C0V                                    46       2       2       0   .abs_section_46
@@ -470,11 +494,12 @@ MODULE:                 -- Vectors_c.obj --
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
-  Events_c.obj                                 0      1      0
-  main_c.obj                                   0     68      0
+  Events_c.obj                                 0      5      0
+  main_c.obj                                   0     86      0
   start08_c.obj                                0    132      0
-  AD1_c.obj                                    7    146      2
-  Cpu_c.obj                                    1    155      2
+  AD1_c.obj                                    7    209      2
+  AS1_c.obj                                   10    216      0
+  Cpu_c.obj                                    3    226      2
   IO_Map_c.obj                               207      0      0
   Vectors_c.obj                                0      0     64
   other                                      512     18      2
@@ -483,16 +508,19 @@ MODULE STATISTIC
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  AD1_OnEnd main loadByte Init _Startup AD1_Interrupt AD1_GetChanValue16 
-  AD1_Init 
+  AD1_OnEnd AS1_OnError AS1_OnRxChar AS1_OnTxChar AS1_OnFreeTxBuf main 
+  loadByte Init _Startup AD1_Interrupt ClrSumV AD1_HWEnDi AD1_Measure 
+  AD1_GetChanValue16 AD1_Init AS1_InterruptRx AS1_InterruptTx 
+  AS1_InterruptError AS1_Init 
 SECTION: ".bss"
-  OutFlg SumChan ModeFlg 
+  OutFlg SumChan ModeFlg SerFlag BufferRead OutIndxR OutIndxW OutBuffer 
+  OnFreeTxBuf_semaphore 
 SECTION: ".init"
   Cpu_Interrupt _EntryPoint PE_low_level_init 
 SECTION: ".rodata"
   Channels 
 SECTION: ".common"
-  AD1_OutV CCR_lock 
+  AD1_OutV AS1_OutLen CCR_lock Shadow_PTD Shadow_PTH 
 SECTION: ".abs_section_ffbd"
   NVPROT_INIT 
 SECTION: ".abs_section_ffbf"
@@ -866,12 +894,12 @@ OBJECT LIST SORTED BY ADDRESS
 ---------------------------------------------------------------------------------------------
      _PTAD                                        0       1       1       0   .abs_section_0
      _PTADD                                       1       1       1       0   .abs_section_1
-     _PTBD                                        2       1       1       0   .abs_section_2
-     _PTBDD                                       3       1       1       0   .abs_section_3
+     _PTBD                                        2       1       1       1   .abs_section_2
+     _PTBDD                                       3       1       1       2   .abs_section_3
      _PTCD                                        4       1       1       0   .abs_section_4
      _PTCDD                                       5       1       1       0   .abs_section_5
-     _PTDD                                        6       1       1       0   .abs_section_6
-     _PTDDD                                       7       1       1       0   .abs_section_7
+     _PTDD                                        6       1       1       2   .abs_section_6
+     _PTDDD                                       7       1       1       2   .abs_section_7
      _PTED                                        8       1       1       0   .abs_section_8
      _PTEDD                                       9       1       1       0   .abs_section_9
      _PTFD                                        A       1       1       0   .abs_section_a
@@ -880,7 +908,7 @@ OBJECT LIST SORTED BY ADDRESS
      _KBI1PE                                      D       1       1       0   .abs_section_d
      _KBI1ES                                      E       1       1       0   .abs_section_e
      _IRQSC                                       F       1       1       0   .abs_section_f
-     _ADCSC1                                     10       1       1       2   .abs_section_10
+     _ADCSC1                                     10       1       1       3   .abs_section_10
      _ADCSC2                                     11       1       1       1   .abs_section_11
      _ADCR                                       12       2       2       2   .abs_section_12
      _ADCCV                                      14       2       2       0   .abs_section_14
@@ -892,15 +920,15 @@ OBJECT LIST SORTED BY ADDRESS
      _ACMP2SC                                    1B       1       1       0   .abs_section_1b
      _PTGD                                       1C       1       1       0   .abs_section_1c
      _PTGDD                                      1D       1       1       0   .abs_section_1d
-     _PTHD                                       1E       1       1       0   .abs_section_1e
-     _PTHDD                                      1F       1       1       0   .abs_section_1f
-     _SCI1BD                                     20       2       2       0   .abs_section_20
-     _SCI1C1                                     22       1       1       0   .abs_section_22
-     _SCI1C2                                     23       1       1       0   .abs_section_23
-     _SCI1S1                                     24       1       1       0   .abs_section_24
-     _SCI1S2                                     25       1       1       0   .abs_section_25
-     _SCI1C3                                     26       1       1       0   .abs_section_26
-     _SCI1D                                      27       1       1       0   .abs_section_27
+     _PTHD                                       1E       1       1       2   .abs_section_1e
+     _PTHDD                                      1F       1       1       2   .abs_section_1f
+     _SCI1BD                                     20       2       2       2   .abs_section_20
+     _SCI1C1                                     22       1       1       1   .abs_section_22
+     _SCI1C2                                     23       1       1       4   .abs_section_23
+     _SCI1S1                                     24       1       1       3   .abs_section_24
+     _SCI1S2                                     25       1       1       1   .abs_section_25
+     _SCI1C3                                     26       1       1       3   .abs_section_26
+     _SCI1D                                      27       1       1       3   .abs_section_27
      _SPI1C1                                     28       1       1       0   .abs_section_28
      _SPI1C2                                     29       1       1       0   .abs_section_29
      _SPI1BR                                     2A       1       1       0   .abs_section_2a
@@ -962,11 +990,20 @@ OBJECT LIST SORTED BY ADDRESS
      _LBP                                        7D       1       1       0   .abs_section_7d
      _LB                                         7E       1       1       0   .abs_section_7e
      _LAPAB                                      7F       1       1       0   .abs_section_7f
-     OutFlg                                      A0       1       1       3   .bss        
-     SumChan                                     A1       1       1       6   .bss        
-     ModeFlg                                     A2       1       1       2   .bss        
-     AD1_OutV                                    A3       4       4       6   .common     
-     CCR_lock                                    A7       1       1       1   .common     
+     OutFlg                                      A0       1       1       4   .bss        
+     SumChan                                     A1       1       1       8   .bss        
+     ModeFlg                                     A2       1       1       6   .bss        
+     SerFlag                                     A3       1       1      11   .bss        
+     BufferRead                                  A4       1       1       1   .bss        
+     OutIndxR                                    A5       1       1       3   .bss        
+     OutIndxW                                    A6       1       1       1   .bss        
+     OutBuffer                                   A7       4       4       1   .bss        
+     OnFreeTxBuf_semaphore                       AB       1       1       2   .bss        
+     AD1_OutV                                    AC       4       4       8   .common     
+     AS1_OutLen                                  B0       1       1       3   .common     
+     CCR_lock                                    B1       1       1       1   .common     
+     Shadow_PTD                                  B2       1       1       1   .common     
+     Shadow_PTH                                  B3       1       1       1   .common     
      _SRS                                      1800       1       1       0   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       1   .abs_section_1802
@@ -1012,7 +1049,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PTCPE                                    1848       1       1       0   .abs_section_1848
      _PTCSE                                    1849       1       1       1   .abs_section_1849
      _PTCDS                                    184A       1       1       1   .abs_section_184a
-     _PTDPE                                    184C       1       1       0   .abs_section_184c
+     _PTDPE                                    184C       1       1       1   .abs_section_184c
      _PTDSE                                    184D       1       1       1   .abs_section_184d
      _PTDDS                                    184E       1       1       1   .abs_section_184e
      _PTEPE                                    1850       1       1       0   .abs_section_1850
@@ -1024,7 +1061,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PTGPE                                    1858       1       1       0   .abs_section_1858
      _PTGSE                                    1859       1       1       1   .abs_section_1859
      _PTGDS                                    185A       1       1       1   .abs_section_185a
-     _PTHPE                                    185C       1       1       0   .abs_section_185c
+     _PTHPE                                    185C       1       1       1   .abs_section_185c
      _PTHSE                                    185D       1       1       1   .abs_section_185d
      _PTHDS                                    185E       1       1       1   .abs_section_185e
      _PTJPE                                    1860       1       1       0   .abs_section_1860
@@ -1049,18 +1086,29 @@ OBJECT LIST SORTED BY ADDRESS
      _PTECLR                                   187B       1       1       0   .abs_section_187b
      _PTCTOG                                   187C       1       1       0   .abs_section_187c
      _PTETOG                                   187D       1       1       0   .abs_section_187d
-     Cpu_Interrupt                             2080       4       4      30   .init       
+     Cpu_Interrupt                             2080       4       4      27   .init       
      _EntryPoint                               2084      41      65       1   .init       
-     PE_low_level_init                         20C5      56      86       1   .init       
-     AD1_OnEnd                                 212D       1       1       1   .text       
-     main                                      212E      44      68       1   .text       
-     loadByte                                  2172       E      14       5   .text       
-     Init                                      2180      6D     109       1   .text       
-     _Startup                                  21ED       9       9       1   .text       
-     AD1_Interrupt                             21F6      52      82       1   .text       
-     AD1_GetChanValue16                        2248      30      48       2   .text       
-     AD1_Init                                  2278      10      16       1   .text       
-     Channels                                  2288       2       2       1   .rodata     
+     PE_low_level_init                         20C5      9D     157       1   .init       
+     AD1_OnEnd                                 2174       1       1       1   .text       
+     AS1_OnError                               2175       1       1       2   .text       
+     AS1_OnRxChar                              2176       1       1       1   .text       
+     AS1_OnTxChar                              2177       1       1       1   .text       
+     AS1_OnFreeTxBuf                           2178       1       1       1   .text       
+     main                                      2179      56      86       1   .text       
+     loadByte                                  21CF       E      14       5   .text       
+     Init                                      21DD      6D     109       1   .text       
+     _Startup                                  224A       9       9       1   .text       
+     AD1_Interrupt                             2253      52      82       1   .text       
+     ClrSumV                                   22A5       9       9       1   .text       
+     AD1_HWEnDi                                22AE      18      24       1   .text       
+     AD1_Measure                               22C6      1E      30       1   .text       
+     AD1_GetChanValue16                        22E4      30      48       2   .text       
+     AD1_Init                                  2314      10      16       1   .text       
+     AS1_InterruptRx                           2324      43      67       1   .text       
+     AS1_InterruptTx                           2367      5A      90       1   .text       
+     AS1_InterruptError                        23C1      11      17       1   .text       
+     AS1_Init                                  23D2      2A      42       1   .text       
+     Channels                                  23FC       2       2       2   .rodata     
      NVPROT_INIT                               FFBD       1       1       0   .abs_section_ffbd
      NVOPT_INIT                                FFBF       1       1       0   .abs_section_ffbf
      _vect                                     FFC0      40      64       0   .abs_section_ffc0
@@ -1070,15 +1118,19 @@ UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
 AD1_c.obj:
-  ClrSumV AD1_HWEnDi AD1_Measure AD1_GetValue16 
+  AD1_GetValue16 
+AS1_c.obj:
+  AS1_RecvChar AS1_SendChar AS1_SendBlock AS1_ClearTxBuf AS1_GetCharsInRxBuf 
 NOT USED VARIABLES
+AS1_c.obj:
+  CCR_reg 
 Cpu_c.obj:
   CCR_reg 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0x228A ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x23FE ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1087,18 +1139,34 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _EntryPoint               USES _SOPT1 _SPMSC1 _SPMSC2 _SPMSC3 _ICSTRM _ICSSC 
                                 _ICSC1 _ICSC2 _Startup 
-PE_low_level_init         USES _SCGC1 _SCGC2 _APCTL2 _PTASE _PTBSE _PTCSE 
+PE_low_level_init         USES _SCGC1 _SCGC2 _APCTL2 _PTBDD _PTBD _PTDD _PTDPE 
+                                _PTDDD _PTHD _PTHPE _PTHDD _PTASE _PTBSE _PTCSE 
                                 _PTDSE _PTESE _PTFSE _PTGSE _PTHSE _PTJSE _PTADS 
                                 _PTBDS _PTCDS _PTDDS _PTEDS _PTFDS _PTGDS _PTHDS 
-                                _PTJDS AD1_Init CCR_lock 
-main                      USES PE_low_level_init AD1_GetChanValue16 
+                                _PTJDS AD1_Init AS1_Init Shadow_PTD Shadow_PTH 
+                                CCR_lock 
+main                      USES PE_low_level_init AD1_Measure 
+                                AD1_GetChanValue16 
 Init                      USES _startupData loadByte 
 _Startup                  USES __SEG_END_SSTACK Init main 
 AD1_Interrupt             USES SumChan AD1_OutV _ADCR OutFlg AD1_OnEnd ModeFlg 
                                 Channels _ADCSC1 
+ClrSumV                   USES AD1_OutV 
+AD1_HWEnDi                USES ModeFlg OutFlg SumChan ClrSumV Channels _ADCSC1 
+AD1_Measure               USES ModeFlg AD1_HWEnDi 
 AD1_GetChanValue16        USES OutFlg AD1_OutV 
 AD1_Init                  USES _ADCSC1 _ADCSC2 OutFlg ModeFlg _ADCCFG 
-_vect                     USES Cpu_Interrupt AD1_Interrupt _EntryPoint 
+AS1_InterruptRx           USES _SCI1S1 _SCI1D SerFlag BufferRead AS1_OnError 
+                                AS1_OnRxChar 
+AS1_InterruptTx           USES SerFlag AS1_OutLen _SCI1S1 OutIndxR OutBuffer 
+                                _SCI1D OnFreeTxBuf_semaphore _SCI1C2 AS1_OnTxChar 
+                                AS1_OnFreeTxBuf 
+AS1_InterruptError        USES _SCI1S1 _SCI1D SerFlag AS1_OnError 
+AS1_Init                  USES SerFlag OnFreeTxBuf_semaphore AS1_OutLen 
+                                OutIndxR OutIndxW _SCI1C1 _SCI1C3 _SCI1C2 _SCI1S2 
+                                _SCI1BD 
+_vect                     USES Cpu_Interrupt AD1_Interrupt AS1_InterruptTx 
+                                AS1_InterruptRx AS1_InterruptError _EntryPoint 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1110,7 +1178,15 @@ DEPENDENCY TREE
  |  +- PE_low_level_init   
  |  |  | 
  |  |  +- AD1_Init            
+ |  |  |    
+ |  |  +- AS1_Init            
  |  |       
+ |  +- AD1_Measure         
+ |  |  | 
+ |  |  +- AD1_HWEnDi          
+ |  |     | 
+ |  |     +- ClrSumV             
+ |  |          
  |  +- AD1_GetChanValue16  
  |       
  +- _EntryPoint         
@@ -1131,6 +1207,22 @@ DEPENDENCY TREE
  |  | 
  |  +- AD1_OnEnd           
  |       
+ +- AS1_InterruptTx     
+ |  | 
+ |  +- AS1_OnTxChar        
+ |  |    
+ |  +- AS1_OnFreeTxBuf     
+ |       
+ +- AS1_InterruptRx     
+ |  | 
+ |  +- AS1_OnError         
+ |  |    
+ |  +- AS1_OnRxChar        
+ |       
+ +- AS1_InterruptError  
+ |  | 
+ |  +- AS1_OnError          (see above)
+ |     
  +- _EntryPoint          (see above)
     
 *********************************************************************************************
@@ -1139,6 +1231,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 590
+Number of blocks to be downloaded: 7
+Total size of all blocks to be downloaded: 962
 

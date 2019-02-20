@@ -5,7 +5,7 @@
 **     Processor   : MC9S08QE128CLK
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2019-02-18, 22:20, # CodeGen: 1
+**     Date/Time   : 2019-02-19, 22:39, # CodeGen: 8
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -60,6 +60,12 @@
 
 #include "Cpu.h"
 #include "AD1.h"
+#include "AS1.h"
+#include "D0.h"
+#include "D1.h"
+#include "D2.h"
+#include "D3.h"
+#include "PTC.h"
 
 /*lint -save  -e950 Disable MISRA rule (1.1) checking. */
 static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table */
@@ -79,9 +85,9 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          AD1_Interrupt,                /* Int.no. 19 Vadc (at FFD8)                  Used */
          Cpu_Interrupt,                /* Int.no. 18 Vkeyboard (at FFDA)             Unassigned */
          Cpu_Interrupt,                /* Int.no. 17 Viicx (at FFDC)                 Unassigned */
-         Cpu_Interrupt,                /* Int.no. 16 Vsci1tx (at FFDE)               Unassigned */
-         Cpu_Interrupt,                /* Int.no. 15 Vsci1rx (at FFE0)               Unassigned */
-         Cpu_Interrupt,                /* Int.no. 14 Vsci1err (at FFE2)              Unassigned */
+         AS1_InterruptTx,              /* Int.no. 16 Vsci1tx (at FFDE)               Used */
+         AS1_InterruptRx,              /* Int.no. 15 Vsci1rx (at FFE0)               Used */
+         AS1_InterruptError,           /* Int.no. 14 Vsci1err (at FFE2)              Used */
          Cpu_Interrupt,                /* Int.no. 13 Vspi1 (at FFE4)                 Unassigned */
          Cpu_Interrupt,                /* Int.no. 12 Vspi2 (at FFE6)                 Unassigned */
          Cpu_Interrupt,                /* Int.no. 11 Vtpm2ovf (at FFE8)              Unassigned */

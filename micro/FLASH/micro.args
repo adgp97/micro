@@ -8,7 +8,13 @@
 "$(ProjDirPath)/FLASH/Sources/main_c.obj"
 "$(ProjDirPath)/FLASH/Project_Settings/Startup_Code/start08_c.obj"
 "$(ProjDirPath)/FLASH/Generated_Code/AD1_c.obj"
+"$(ProjDirPath)/FLASH/Generated_Code/AS1_c.obj"
 "$(ProjDirPath)/FLASH/Generated_Code/Cpu_c.obj"
+"$(ProjDirPath)/FLASH/Generated_Code/D0_c.obj"
+"$(ProjDirPath)/FLASH/Generated_Code/D1_c.obj"
+"$(ProjDirPath)/FLASH/Generated_Code/D2_c.obj"
+"$(ProjDirPath)/FLASH/Generated_Code/D3_c.obj"
 "$(ProjDirPath)/FLASH/Generated_Code/IO_Map_c.obj"
+"$(ProjDirPath)/FLASH/Generated_Code/PTC_c.obj"
 "$(ProjDirPath)/FLASH/Generated_Code/Vectors_c.obj"
 "$(MCUToolsBaseDirEnv)/lib/hc08c/lib/ansiis.lib" )

@@ -31,6 +31,12 @@
 #include "Cpu.h"
 #include "Events.h"
 #include "AD1.h"
+#include "AS1.h"
+#include "D0.h"
+#include "D1.h"
+#include "D2.h"
+#include "D3.h"
+#include "PTC.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -43,7 +49,7 @@ void main(void)
 {
   /* Write your local variable definition here */
 	char trama[4], A[2], B[2];
-	
+	bool D0 = 0,D1 = 0,D2 = 0,D3 = 0;
 	
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   PE_low_level_init();
@@ -53,15 +59,53 @@ void main(void)
   
   /* For example: for(;;) { } */
   for(;;){
+
+	  //Adquisición de señales analógicas
+	  AD1_Measure(TRUE);
+	  AD1_GetChanValue16(0,A); //Canal 0 
+	  AD1_GetChanValue16(1,B); //Canal 1
 	  
-	  AD1_GetChanValue16(0,A);
-	  AD1_GetChanValue16(1,B);
+	  //Entramado
+	  trama[0] = (A[0] << 2 | A[1] >> 6) & 0b01111111;
+	  //trama[1] = A[1]<<2;
+	  //trama[1] = trama[1]>>2 | 0b10000000;
+	  trama[1] = (A[1] & 0b00111111) | 0b10000000;
+	  trama[2] = (B[0] << 2 | B[1] >> 6) | 0b10000000;
+	  //trama[3] = B[1]<<2;
+	  //trama[3] = trama[3]>>2 | 0b10000000;
+	  trama[3] = (B[1] & 0b00111111) | 0b10000000;
 	  
-	  trama[0] = (A[0]<<2 | A[1]>>6) & 0b01111111;
-	  trama[1] = A[1]<<2;
-	  trama[1] = trama[1]>>2 | 0b10000000;
-	  trama[2] = (B[0]<<2 | B[1]>>6) | 0b10000000;
-	  //Falta el ultimo byte de la trama
+	  
+	  //Adquisición de señales digitales y su inclusión en la trama
+	  //Canal 0
+	  if(D0_GetVal() == 0){
+		  trama[0] = trama[0] & 0b10111111;
+	  }else{
+		  trama[0] = trama[0] | 0b01000000;
+	  }
+	  //Canal 1
+	  if(D1_GetVal()  == 0){
+		  trama[1] = trama[1] & 0b10111111;
+	  }else{
+		  trama[1] = trama[1] | 0b01000000;
+	  }
+	  //Canal 2
+	  if(D2_GetVal() == 0){
+		  trama[2] = trama[2] & 0b10111111;
+	  }else{
+		  trama[2] = trama[2] | 0b01000000;
+	  }
+	  //Canal 3
+	  if(D3_GetVal() == 0){
+		  trama[3] = trama[3] & 0b10111111;
+	  }else{
+		  trama[3] = trama[3] | 0b01000000;
+	  }
+	  
+	  //El codigo no funciona pq falta configurar el gpio
+	  //Falta incluir los canales digitales
+	  //AS1_SendBlock();
+	  
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

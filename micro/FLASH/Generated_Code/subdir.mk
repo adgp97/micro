@@ -7,44 +7,86 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS_QUOTED += \
 "../Generated_Code/AD1.c" \
+"../Generated_Code/AS1.c" \
 "../Generated_Code/Cpu.c" \
+"../Generated_Code/D0.c" \
+"../Generated_Code/D1.c" \
+"../Generated_Code/D2.c" \
+"../Generated_Code/D3.c" \
 "../Generated_Code/IO_Map.c" \
+"../Generated_Code/PTC.c" \
 "../Generated_Code/Vectors.c" \
 
 C_SRCS += \
 ../Generated_Code/AD1.c \
+../Generated_Code/AS1.c \
 ../Generated_Code/Cpu.c \
+../Generated_Code/D0.c \
+../Generated_Code/D1.c \
+../Generated_Code/D2.c \
+../Generated_Code/D3.c \
 ../Generated_Code/IO_Map.c \
+../Generated_Code/PTC.c \
 ../Generated_Code/Vectors.c \
 
 OBJS += \
 ./Generated_Code/AD1_c.obj \
+./Generated_Code/AS1_c.obj \
 ./Generated_Code/Cpu_c.obj \
+./Generated_Code/D0_c.obj \
+./Generated_Code/D1_c.obj \
+./Generated_Code/D2_c.obj \
+./Generated_Code/D3_c.obj \
 ./Generated_Code/IO_Map_c.obj \
+./Generated_Code/PTC_c.obj \
 ./Generated_Code/Vectors_c.obj \
 
 OBJS_QUOTED += \
 "./Generated_Code/AD1_c.obj" \
+"./Generated_Code/AS1_c.obj" \
 "./Generated_Code/Cpu_c.obj" \
+"./Generated_Code/D0_c.obj" \
+"./Generated_Code/D1_c.obj" \
+"./Generated_Code/D2_c.obj" \
+"./Generated_Code/D3_c.obj" \
 "./Generated_Code/IO_Map_c.obj" \
+"./Generated_Code/PTC_c.obj" \
 "./Generated_Code/Vectors_c.obj" \
 
 C_DEPS += \
 ./Generated_Code/AD1_c.d \
+./Generated_Code/AS1_c.d \
 ./Generated_Code/Cpu_c.d \
+./Generated_Code/D0_c.d \
+./Generated_Code/D1_c.d \
+./Generated_Code/D2_c.d \
+./Generated_Code/D3_c.d \
 ./Generated_Code/IO_Map_c.d \
+./Generated_Code/PTC_c.d \
 ./Generated_Code/Vectors_c.d \
 
 C_DEPS_QUOTED += \
 "./Generated_Code/AD1_c.d" \
+"./Generated_Code/AS1_c.d" \
 "./Generated_Code/Cpu_c.d" \
+"./Generated_Code/D0_c.d" \
+"./Generated_Code/D1_c.d" \
+"./Generated_Code/D2_c.d" \
+"./Generated_Code/D3_c.d" \
 "./Generated_Code/IO_Map_c.d" \
+"./Generated_Code/PTC_c.d" \
 "./Generated_Code/Vectors_c.d" \
 
 OBJS_OS_FORMAT += \
 ./Generated_Code/AD1_c.obj \
+./Generated_Code/AS1_c.obj \
 ./Generated_Code/Cpu_c.obj \
+./Generated_Code/D0_c.obj \
+./Generated_Code/D1_c.obj \
+./Generated_Code/D2_c.obj \
+./Generated_Code/D3_c.obj \
 ./Generated_Code/IO_Map_c.obj \
+./Generated_Code/PTC_c.obj \
 ./Generated_Code/Vectors_c.obj \
 
 
@@ -62,25 +104,73 @@ Generated_Code/%.d: ../Generated_Code/%.c
 	
 	@echo ' '
 
-Generated_Code/Cpu_c.obj: ../Generated_Code/Cpu.c
+Generated_Code/AS1_c.obj: ../Generated_Code/AS1.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #5 $<'
+	@echo 'Invoking: HCS08 Compiler'
+	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/AS1.args" -ObjN="Generated_Code/AS1_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Generated_Code/Cpu_c.obj: ../Generated_Code/Cpu.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #6 $<'
 	@echo 'Invoking: HCS08 Compiler'
 	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/Cpu.args" -ObjN="Generated_Code/Cpu_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
 	@echo 'Finished building: $<'
 	@echo ' '
 
+Generated_Code/D0_c.obj: ../Generated_Code/D0.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #7 $<'
+	@echo 'Invoking: HCS08 Compiler'
+	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/D0.args" -ObjN="Generated_Code/D0_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Generated_Code/D1_c.obj: ../Generated_Code/D1.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #8 $<'
+	@echo 'Invoking: HCS08 Compiler'
+	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/D1.args" -ObjN="Generated_Code/D1_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Generated_Code/D2_c.obj: ../Generated_Code/D2.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #9 $<'
+	@echo 'Invoking: HCS08 Compiler'
+	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/D2.args" -ObjN="Generated_Code/D2_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Generated_Code/D3_c.obj: ../Generated_Code/D3.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #10 $<'
+	@echo 'Invoking: HCS08 Compiler'
+	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/D3.args" -ObjN="Generated_Code/D3_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
+	@echo 'Finished building: $<'
+	@echo ' '
+
 Generated_Code/IO_Map_c.obj: ../Generated_Code/IO_Map.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #6 $<'
+	@echo 'Executing target #11 $<'
 	@echo 'Invoking: HCS08 Compiler'
 	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/IO_Map.args" -ObjN="Generated_Code/IO_Map_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
 	@echo 'Finished building: $<'
 	@echo ' '
 
+Generated_Code/PTC_c.obj: ../Generated_Code/PTC.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #12 $<'
+	@echo 'Invoking: HCS08 Compiler'
+	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/PTC.args" -ObjN="Generated_Code/PTC_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
+	@echo 'Finished building: $<'
+	@echo ' '
+
 Generated_Code/Vectors_c.obj: ../Generated_Code/Vectors.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #7 $<'
+	@echo 'Executing target #13 $<'
 	@echo 'Invoking: HCS08 Compiler'
 	"$(HC08ToolsEnv)/chc08" -ArgFile"Generated_Code/Vectors.args" -ObjN="Generated_Code/Vectors_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
 	@echo 'Finished building: $<'
